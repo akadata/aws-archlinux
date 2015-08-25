@@ -48,6 +48,9 @@ echo "useradd ec2-user" >>/mnt/root.x86_64/install-arch.sh
 echo "echo \"ec2-user:passw0rd\" | chpasswd" >>/mnt/root.x86_64/install-arch.sh 
 echo "curl http://169.254.169.254/latest/meta-data/public-keys/0/openssh-key >/mnt/root.x86_64/home/ec2-user/.ssh/authorized_keys" >>/mnt/root.x86_64/install-arch.sh 
 echo "chown ec2-user.ec2-user /home/ec2-user -R" >>/mnt/root.x86_64/install-arch.sh 
+echo "umount -l /mnt/root.x86_64" >>/mnt/root.x86_64/install-arch.sh 
+echo "halt" >>/mnt/root.x86_64/install-arch.sh 
+echo "echo Halting the system - go snapshot, create an image, create an AMI, Have FUN!!!" >>/mnt/root.x86_64/install-arch.sh 
 chmod 755 /mnt/root.x86_64/install-arch.sh
 # creating /usr/lib/systemd/system/rc-local.service
 echo "[Unit]">/mnt/root.x86_64/usr/lib/systemd/system/rc-local.service
