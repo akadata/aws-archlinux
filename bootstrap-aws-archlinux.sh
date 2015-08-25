@@ -9,15 +9,18 @@ a
 1
 w
 "|fdisk /dev/xvdf
+echo "Disk Partitioned!"
 mkfs.ext4 -L ARCHROOTFS -j /dev/xvdf1 
+echo "Disk Formatted and here we go to mount it. get the 2 packages and whoop when it halts you can reboot"
 mkdir -p /mnt/root.x86_64
 mount /dev/xvdf1 /mnt/root.x86_64
 cd /tmp
-#wget http://archlinux.mirrors.uk2.net/iso/2015.08.01/archlinux-bootstrap-2015.08.01-x86_64.tar.gz
-#wget http://slash64.uk/pacman-keys.tar.gz
+curl "http://archlinux.mirrors.uk2.net/iso/2015.08.01/archlinux-bootstrap-2015.08.01-x86_64.tar.gz" >/tmp/archlinux-bootstrap-2015.08.01-x86_64.tar.gz
+curl "http://slash64.uk/pacman-keys.tar.gz">/tmp/pacman-keys.tar.gz
 cd /mnt/
 tar -xzvf /tmp/archlinux-bootstrap-2015.08.01-x86_64.tar.gz
 tar -xzvf /tmp/pacman-keys.tar.gz -C /mnt/root.x86_64/
+rm /tmp/*.gz
 if [ -a /mnt/root.x86_64/install-arch.sh ]
   then
 	rm /mnt/root.x86_64/install-arch.sh
@@ -68,7 +71,8 @@ echo "WantedBy=multi-user.target">>/mnt/root.x86_64/usr/lib/systemd/system/rc-lo
 for i in proc sys dev run; do mount --rbind /$i /mnt/root.x86_64/$i; done
 cd /mnt/root.x86_64/
 chroot . ./install-arch.sh
-chroot /mnt/root.x86_64/ /bin/bash
+# Uncomment next line if you dont want to halt and create your AMI
+#chroot /mnt/root.x86_64/ /bin/bash
 # I am leaving you in the chroot now to do as you wish before you disconnect the drive, snapshot, create a disk image and create your own AMI
 # your ssh key from this instance is imported for you!! Have fun
 # (C) 2015 - anderw.smalley@linux.com
