@@ -2,7 +2,7 @@
 
 This is a bootstrap script to install ArchLinux from a bootstrap tar.gz file
 
-Download this to an Amazon ASW Instance of any Linux type.
+Download this to an Amazon AWS Instance of any Linux type.
 
 Attach a new disk 5gb is more than enough with the default settings which are usually /dev/sdf
 
